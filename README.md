@@ -3,6 +3,9 @@
 这是一个 ClassIsland 插件，用于从 Excel 导入姓名与生日，并在主界面显示今日生日人数。
 
 ## 功能预览
+![功能预览](https://raw.githubusercontent.com/jinzhiyuan0327/BirthdayIsland/github/Pictures/1.png)
+![组件设置截图](https://raw.githubusercontent.com/jinzhiyuan0327/BirthdayIsland/github/Pictures/2.png)
+![导入内容截图](https://raw.githubusercontent.com/jinzhiyuan0327/BirthdayIsland/github/Pictures/3.png)
 
 ## 功能
 
