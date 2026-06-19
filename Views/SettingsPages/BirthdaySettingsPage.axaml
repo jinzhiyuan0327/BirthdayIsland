@@ -1,0 +1,94 @@
+<ci:SettingsPageBase x:Class="BirthdayIsland.Views.SettingsPages.BirthdaySettingsPage"
+                     xmlns="https://github.com/avaloniaui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                     xmlns:models="clr-namespace:BirthdayIsland.Models"
+                     xmlns:vm="clr-namespace:BirthdayIsland.ViewModels"
+                     x:DataType="vm:BirthdaySettingsPageViewModel">
+    <ScrollViewer>
+        <StackPanel Margin="16" Spacing="16">
+
+            <TextBlock Text="生日显示插件" FontSize="22" FontWeight="Bold" />
+
+            <!-- 操作按钮 -->
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="导入 Excel" Command="{Binding ImportExcelCommand}" />
+                <Button Content="清空数据" Command="{Binding ClearCommand}" />
+                <Button Content="刷新" Command="{Binding ReloadCommand}" />
+            </StackPanel>
+
+            <!-- 状态提示 -->
+            <TextBlock Text="{Binding StatusMessage}"
+                       Foreground="{DynamicResource SystemAccentColor}"
+                       TextWrapping="Wrap"
+                       IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+            <!-- 当前数据概览 -->
+            <Border BorderThickness="1" CornerRadius="6" Padding="12"
+                    BorderBrush="{DynamicResource ControlElevationBorderBrush}">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="当前数据" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding TotalCount, StringFormat='总人数：{0}'}" />
+                    <TextBlock Text="{Binding TodayBirthdayCount, StringFormat='今日生日人数：{0}'}" />
+                    <TextBlock Text="{Binding LastImportFileName, StringFormat='上次导入文件：{0}'}" />
+                    <TextBlock Text="{Binding LastImportTimeText, StringFormat='上次导入时间：{0}'}" />
+                </StackPanel>
+            </Border>
+
+            <!-- 导入错误列表 -->
+            <StackPanel Spacing="4"
+                        IsVisible="{Binding ImportErrors.Count}">
+                <TextBlock Text="导入失败明细" FontWeight="SemiBold" Foreground="OrangeRed" />
+                <ItemsControl ItemsSource="{Binding ImportErrors}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" Foreground="OrangeRed" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <!-- 今日生日 -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="今日生日" FontWeight="SemiBold" />
+                <ItemsControl ItemsSource="{Binding TodayBirthdays}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:BirthdayPerson">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <TextBlock Text="{Binding Name}" Width="120" />
+                                <TextBlock Text="{Binding Birthday, StringFormat='{}{0:MM-dd}'}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <!-- 全部生日数据 -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="全部生日数据" FontWeight="SemiBold" />
+                <Grid ColumnDefinitions="2*,2*,2*,Auto" Margin="0,0,0,4">
+                    <TextBlock Grid.Column="0" Text="姓名" FontWeight="SemiBold" />
+                    <TextBlock Grid.Column="1" Text="生日" FontWeight="SemiBold" />
+                    <TextBlock Grid.Column="2" Text="备注" FontWeight="SemiBold" />
+                    <TextBlock Grid.Column="3" Text="操作" FontWeight="SemiBold" />
+                </Grid>
+                <ItemsControl ItemsSource="{Binding People}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:BirthdayPerson">
+                            <Grid ColumnDefinitions="2*,2*,2*,Auto" Margin="0,2">
+                                <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="{Binding Birthday, StringFormat='{}{0:MM-dd}'}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="{Binding Remark}" VerticalAlignment="Center" />
+                                <Button Grid.Column="3"
+                                        Content="删除"
+                                        Command="{Binding $parent[ItemsControl].((vm:BirthdaySettingsPageViewModel)DataContext).DeletePersonCommand}"
+                                        CommandParameter="{Binding}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</ci:SettingsPageBase>

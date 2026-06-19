@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<RootNamespace>BirthdayIsland</RootNamespace>
+		<AssemblyName>BirthdayIsland</AssemblyName>
+		<!-- 必须：允许程序集作为插件被动态加载，并将依赖 DLL 与 .deps.json 输出到 bin 目录 -->
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<!-- 插件版本号 -->
+		<Version>2.1.0.0</Version>
+		<AssemblyVersion>2.1.0.0</AssemblyVersion>
+		<FileVersion>2.1.0.0</FileVersion>
+		<!-- 与 XAML 中的 x:DataType 编译期绑定配合 -->
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	</PropertyGroup>
+
+	<!-- ClassIsland 插件 SDK 版本：沿用空白模板的写法，保证与本机 ClassIsland 匹配 -->
+	<PropertyGroup>
+		<ClassIslandPluginSdkVersion>1.7.106.2-dev-v2</ClassIslandPluginSdkVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- ClassIsland 插件 SDK：提供 PluginBase / ComponentBase / SettingsPageBase 等 -->
+		<PackageReference Include="ClassIsland.PluginSdk" Version="$(ClassIslandPluginSdkVersion)">
+			<ExcludeAssets>runtime; native</ExcludeAssets>
+		</PackageReference>
+		<!-- MVVM 工具：ObservableObject / RelayCommand 源生成器 -->
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<!-- Excel(.xlsx) 解析 -->
+		<PackageReference Include="ClosedXML" Version="0.104.2" />
+	</ItemGroup>
+
+	<!-- 随插件一起打包的资源文件 -->
+	<ItemGroup>
+		<None Update="manifest.yml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="README.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="icon.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>

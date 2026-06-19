@@ -1,0 +1,23 @@
+<ci:ComponentBase x:TypeArguments="models:BirthdayComponentSettings"
+                  x:Class="BirthdayIsland.Views.Components.BirthdayTodayComponentSettingsControl"
+                  xmlns="https://github.com/avaloniaui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                  xmlns:models="clr-namespace:BirthdayIsland.Models"
+                  x:DataType="models:BirthdayComponentSettings">
+	<StackPanel Spacing="8" Margin="4">
+		<ToggleSwitch Content="显示生日者姓名"
+                      IsChecked="{Binding ShowNames}" />
+		<StackPanel Orientation="Horizontal" Spacing="8">
+			<TextBlock Text="最多显示姓名数" VerticalAlignment="Center" />
+			<NumericUpDown Minimum="1"
+                           Maximum="20"
+                           Increment="1"
+                           Width="120"
+                           Value="{Binding MaxNameCount}" />
+		</StackPanel>
+		<TextBlock Text="超过该数量时只显示“今日生日：N 人”。"
+                   Opacity="0.7"
+                   TextWrapping="Wrap" />
+	</StackPanel>
+</ci:ComponentBase>

@@ -1,0 +1,14 @@
+<ci:ComponentBase x:TypeArguments="models:BirthdayComponentSettings"
+                  x:Class="BirthdayIsland.Views.Components.BirthdayTodayComponent"
+                  xmlns="https://github.com/avaloniaui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                  xmlns:models="clr-namespace:BirthdayIsland.Models">
+	<!-- 不再用 {Binding}：改为给 TextBlock 命名，在代码后置里直接赋值 Text，
+         彻底避开 ComponentBase 的 DataContext 被框架覆盖导致的“空白组件”问题。 -->
+	<TextBlock x:Name="DisplayTextBlock"
+               Text="🎂 今日生日：0 人"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               TextWrapping="NoWrap" />
+</ci:ComponentBase>
