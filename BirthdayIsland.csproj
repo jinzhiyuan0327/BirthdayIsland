@@ -10,9 +10,9 @@
 		<!-- 必须：允许程序集作为插件被动态加载，并将依赖 DLL 与 .deps.json 输出到 bin 目录 -->
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<!-- 插件版本号 -->
-		<Version>2.1.0.0</Version>
-		<AssemblyVersion>2.1.0.0</AssemblyVersion>
-		<FileVersion>2.1.0.0</FileVersion>
+		<Version>2.5.0.0</Version>
+		<AssemblyVersion>2.5.0.0</AssemblyVersion>
+		<FileVersion>2.5.0.0</FileVersion>
 		<!-- 与 XAML 中的 x:DataType 编译期绑定配合 -->
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 	</PropertyGroup>
