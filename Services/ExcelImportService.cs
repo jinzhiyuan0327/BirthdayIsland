@@ -180,6 +180,27 @@ public class ExcelImportService
             }
         }
 
+        // 2) Excel 经常把“6月19日”“06-19”“2010年12月25日”等自动转换成日期序列号(数字)。
+        //    这种单元格 DataType 是 Number，GetString() 只能得到像 “46192” 的序列号文本，
+        //    必须用 OADate 还原成真正的日期，否则会被当成“无法识别的格式”。
+        if (cell.DataType == XLDataType.Number)
+        {
+            try
+            {
+                double serial = cell.GetDouble();
+                // Excel 日期序列号合理范围：1(1899-12-31) ~ 2958465(9999-12-31)
+                if (serial >= 1 && serial < 2958466)
+                {
+                    birthday = DateTime.FromOADate(serial);
+                    return true;
+                }
+            }
+            catch
+            {
+                // 继续按文本解析
+            }
+        }
+
         string raw = cell.GetString().Trim();
         return TryParseBirthdayText(raw, out birthday);
     }
@@ -232,6 +253,21 @@ public class ExcelImportService
         {
             birthday = parsed;
             return true;
+        }
+
+        // 兜底2：CSV 转存时 Excel 可能把日期写成纯数字序列号（文本形式），如 "46192"。
+        //         仅在数值落在常见出生年份范围(约 1927~2119)时按 OADate 还原，避免误伤普通数字。
+        if (long.TryParse(raw, out long serial) && serial >= 10000 && serial < 80000)
+        {
+            try
+            {
+                birthday = DateTime.FromOADate(serial);
+                return true;
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         return false;
