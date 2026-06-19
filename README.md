@@ -2,7 +2,13 @@
 
 这是一个 ClassIsland 插件，用于从 Excel 导入姓名与生日，并在主界面显示今日生日人数。
 
+## Github项目主页
+
+https://github.com/jinzhiyuan0327/BirthdayIsland
+帮忙点个Star呗
+
 ## 功能预览
+
 ![功能预览](https://raw.githubusercontent.com/jinzhiyuan0327/BirthdayIsland/github/Pictures/1.png)
 ![组件设置截图](https://raw.githubusercontent.com/jinzhiyuan0327/BirthdayIsland/github/Pictures/2.png)
 ![导入内容截图](https://raw.githubusercontent.com/jinzhiyuan0327/BirthdayIsland/github/Pictures/3.png)
@@ -52,3 +58,7 @@
 ## 数据存储
 
 生日数据保存在插件配置目录下的 `birthdays.json`，启动时自动读取，导入/删除/清空后自动保存。
+
+## 开发说明
+
+使用Opus 4.8辅助开发
